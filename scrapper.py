@@ -15,8 +15,10 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+# set what city I want to get houses for
 city = 'denver/'
 
+# Create a list of urls to scrap
 def get_page_urls(number_of_pages: int, city: str) -> list:
     city_url = 'https://www.zillow.com/homes/for_sale/' + city
     city_urls = [city_url]
@@ -25,6 +27,7 @@ def get_page_urls(number_of_pages: int, city: str) -> list:
         city_urls.append(tmp_url)
     return city_urls
 
+# Get a list of urls for the specific homes by using the zillow id
 def get_details_page_url(dataframe):
     zillow_ids = list(dataframe['zpid'])
     zillow_details_url = []
@@ -33,6 +36,7 @@ def get_details_page_url(dataframe):
         zillow_details_url.append(tmp)
     return zillow_details_url
 
+# 
 def data_list(urls):
     ua = UserAgent()
     req_headers = {
@@ -51,6 +55,8 @@ def data_list(urls):
             housing_data.append(tmp_data)
     return housing_data
 
+# Get specific house details
+# Need the neighborhood and 2010-2022 data
 def get_house_details(urls):
     house_data = {}
     completed = 0
